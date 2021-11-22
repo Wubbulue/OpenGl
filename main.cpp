@@ -16,6 +16,26 @@
 const unsigned int width = 800;
 const unsigned int height = 800;
 
+double lastWTime = -3;
+
+std::shared_ptr<Camera> _camera;
+
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key==GLFW_KEY_W && action == GLFW_PRESS) {
+		double currentWTime = glfwGetTime();
+		if ((currentWTime - lastWTime) <= (double(double(1) / double(2)))) {
+			_camera->setSpeedFast();
+		}
+		lastWTime = currentWTime;
+	}
+	else if (key==GLFW_KEY_W && action == GLFW_RELEASE){
+		_camera->setSpeedSlow();
+	}
+	//printf("Key was pressed!\n");
+}
+
 
 
 
@@ -117,7 +137,11 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	//Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	_camera = std::make_shared<Camera>(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	//camera = Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+
+	glfwSetKeyCallback(window, key_callback);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -131,8 +155,8 @@ int main()
 		// Tell OpenGL which Shader Program we want to use
 		shaderProgram.Activate();
 
-		camera.Inputs(window);
-		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+		_camera->Inputs(window);
+		_camera->Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
 		////rotating model timer
 		//double crntTime = glfwGetTime();

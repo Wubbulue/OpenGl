@@ -14,6 +14,9 @@
 
 class Camera {
 
+private:
+
+
 public:
 	const float slowSpeed = 0.02f;
 	const float fastSpeed = 0.06f;
@@ -35,6 +38,10 @@ public:
 	void Matrix(float FOVdeg, float nearPlane, float farPlane, Shader& shader, const char* uniform);
 
 	void Inputs(GLFWwindow* window);
+
+	void setSpeedSlow();
+
+	void setSpeedFast();
 
 
 };

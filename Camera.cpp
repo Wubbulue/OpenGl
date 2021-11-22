@@ -53,7 +53,7 @@ void Camera::Inputs(GLFWwindow* window) {
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE) {
-		printf("W is released!\n");
+		//printf("W is released!\n");
 		speed = slowSpeed;
 	}
 
@@ -97,5 +97,15 @@ void Camera::Inputs(GLFWwindow* window) {
 		firstClick = true;
 	}
 }
+
+	void Camera::setSpeedSlow() {
+
+		speed = slowSpeed;
+	}
+
+	void Camera::setSpeedFast() {
+		speed = fastSpeed;
+	}
+
 
 
